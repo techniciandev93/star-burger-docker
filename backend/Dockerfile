@@ -5,6 +5,11 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+RUN apt update && \
+    apt upgrade && \
+    apt install -y python3-pip libpq-dev
+
+
 COPY backend/requirements.txt requirements.txt
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt && \
