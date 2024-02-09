@@ -11,3 +11,5 @@ RUN pip install --upgrade pip && \
     pip install gunicorn
 
 COPY backend/ .
+
+RUN python manage.py collectstatic --no-input

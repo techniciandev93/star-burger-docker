@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: backend/Dockerfile
     volumes:
-      - ./staticfiles:/app/staticfiles/
-      - ./mediafiles:/app/media/
+      - static_volume:/app/staticfiles/
+      - media_volume:/app/media/
       - bundles_volume:/app/bundles/
     depends_on:
       - postgres
@@ -15,12 +15,11 @@ services:
       - .env
     command: >
       sh -c "python /app/manage.py migrate &&
-             python /app/manage.py collectstatic --noinput &&
              python /app/manage.py runserver 0.0.0.0:8000"
     expose:
       - 8000
     ports:
-      - 8000:8000
+      - "8000:8000"
     restart: always
 
   frontend:
@@ -35,21 +34,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
-      - .env.prod.db
+      - .env
     restart: always
-
-#  nginx:
-#    image: nginx:latest
-#    ports:
-#      - "80:80"
-#    volumes:
-#      - ./staticfiles/:/code/static
-#      - ./media/:/code/media
-#      - ./nginx_config/:/etc/nginx/conf.d/
-#    depends_on:
-#      - django
-#    restart: always
 
 volumes:
   postgres_data:
   bundles_volume:
+  media_volume:
+  static_volume:

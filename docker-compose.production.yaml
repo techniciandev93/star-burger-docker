@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    volumes:
+      - static_volume:/app/staticfiles/
+      - media_volume:/app/media/
+      - bundles_volume:/app/bundles/
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    command: gunicorn star_burger.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - 8000
+    ports:
+      - "8000:8000"
+    restart: always
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    volumes:
+      - bundles_volume:/app/frontend/bundles/
+
+  postgres:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+    restart: always
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - static_volume:/code/static
+      - media_volume:/code/media
+      - ./nginx_config/:/etc/nginx/conf.d/
+    env_file:
+      - .env
+    depends_on:
+      - django
+    restart: always
+
+volumes:
+  postgres_data:
+  bundles_volume:
+  media_volume:
+  static_volume:
