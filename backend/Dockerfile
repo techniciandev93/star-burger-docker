@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir -r requirements.txt && \
 
 COPY backend/ .
 
-RUN python manage.py collectstatic --no-input
+#RUN python manage.py collectstatic --no-input
