@@ -13,7 +13,9 @@ services:
       - postgres
     env_file:
       - .env
-    command: gunicorn star_burger.wsgi:application --bind 0.0.0.0:8000
+    command: >
+        sh -c "python3 /opt/star-burger/backend/manage.py collectstatic --noinput &&
+        gunicorn star_burger.wsgi:application --bind 0.0.0.0:8000"
     expose:
       - 8000
     ports:
