@@ -1,14 +1,9 @@
-FROM python:3.9
+FROM python:3.9-slim
 
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
-
-RUN apt update && \
-    apt upgrade && \
-    apt install -y python3-pip libpq-dev
-
 
 COPY backend/requirements.txt requirements.txt
 RUN pip install --upgrade pip
