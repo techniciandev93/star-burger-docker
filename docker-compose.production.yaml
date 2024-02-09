@@ -44,6 +44,7 @@ services:
       - static_volume:/code/static
       - media_volume:/code/media
       - ./nginx_config/:/etc/nginx/conf.d/
+      - /etc/letsencrypt:/etc/letsencrypt
     env_file:
       - .env
     depends_on:
