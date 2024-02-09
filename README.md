@@ -30,8 +30,6 @@
 - POSTGRES_DB=название_базы_данных
 - YANDEX_GEOCODER_TOKEN=апи ключ геокодера сервиса Яндекс.Карты. Получить можно [здесь](https://developer.tech.yandex.ru/services/).
 - DOMAIN_NAME=Укажите ваш домен
-- SSL_CERTIFICATE_PATH=Укажите полный путь к сертификату на сервере
-- SSL_CERTIFICATE_KEY_PATH=Укажите полный путь к приватному ключу на сервере
 ```
 
 Две **необязательных** переменных для сервиса логгирования Rollbar:
